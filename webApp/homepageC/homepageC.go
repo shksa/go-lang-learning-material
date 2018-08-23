@@ -1,4 +1,4 @@
-package homepage
+package homepageC
 
 import (
 	"fmt"
@@ -14,7 +14,7 @@ const (
 <style>.error{color:#FF0000;}.result{color:#0000FF}</style></head><title>Statistics</title>
 <body><h3>Matrix multiplication</h3>
 <p>Computes matrix multiplication b/w 2 matrices.</p>`
-	form = `<form action="/home" method="POST">
+	form = `<form action="/homeC" method="POST">
 <label for="matASize">Size of matrix A  (comma or space-separated) </label><br />
 <input type="text" name="matASize" size="30"><br />
 <label for="matBSize">Size of matrix B  (comma or space-separated) </label><br />
@@ -42,21 +42,28 @@ func createMat(matrixSize [2]int) [][]float64 {
 	return mat
 }
 
-func matrixMultiply(mat1 [][]float64, mat2 [][]float64) float64 {
-	var sum float64
-
+func matrixMultiply(mat1 [][]float64, mat2 [][]float64, sumCh chan float64) float64 {
 	rowsOfMat1 := len(mat1)
 	colsOfMat2 := len(mat2[0])
+
 	for mat1RowIdx := 0; mat1RowIdx < rowsOfMat1; mat1RowIdx++ {
 		for mat2ColIdx := 0; mat2ColIdx < colsOfMat2; mat2ColIdx++ {
-			sum += dotProduct(mat1, mat2, mat1RowIdx, mat2ColIdx)
+			go dotProduct(mat1, mat2, mat1RowIdx, mat2ColIdx, sumCh)
+		}
+	}
+
+	var sum float64
+
+	for i := 0; i < rowsOfMat1; i++ {
+		for j := 0; j < colsOfMat2; j++ {
+			sum += <-sumCh
 		}
 	}
 
 	return sum
 }
 
-func dotProduct(mat1 [][]float64, mat2 [][]float64, mat1RowIdx int, mat2ColIdx int) float64 {
+func dotProduct(mat1, mat2 [][]float64, mat1RowIdx, mat2ColIdx int, sumCh chan float64) {
 	var result float64
 
 	for k := 0; k < 100; k++ {
@@ -65,13 +72,14 @@ func dotProduct(mat1 [][]float64, mat2 [][]float64, mat1RowIdx int, mat2ColIdx i
 		}
 	}
 	// fmt.Println(result)
-	return result
+	sumCh <- result
 }
 
 func createMatAndMultiply(matAsize, matBsize [2]int) float64 {
 	mat1 := createMat(matAsize)
 	mat2 := createMat(matBsize)
-	sum := matrixMultiply(mat1, mat2)
+	sumCh := make(chan float64, matAsize[0]*matBsize[1])
+	sum := matrixMultiply(mat1, mat2, sumCh)
 	return sum
 }
 
