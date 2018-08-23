@@ -7,6 +7,8 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/shksa/learningGo/webApp/homepage"
 )
 
 const (
@@ -43,8 +45,8 @@ func homePage(writer http.ResponseWriter, request *http.Request) {
 		fmt.Fprintf(writer, anError, err)
 	} else {
 		if numbers, message, ok := processRequest(request); ok {
-			stats := getStats(numbers)
-			fmt.Fprint(writer, formatStats(stats))
+			result := homepage.CreateAndMultiply(int(numbers[0]), int(numbers[1]))
+			fmt.Fprint(writer, result)
 		} else if message != "" {
 			fmt.Fprintf(writer, anError, message)
 		}
