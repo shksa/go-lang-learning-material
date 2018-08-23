@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-alpha/dist/katex.min.css" integrity="sha384-BTL0nVi8DnMrNdMQZG1Ww6yasK9ZGnUxL1ZWukXQ7fygA1py52yPp9W4wrR00VML" crossorigin="anonymous">
+        <style>
+/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 26px; line-height: 22px; word-wrap: break-word; } #code-csp-warning { position: fixed; top: 0; right: 0; color: white; margin: 16px; text-align: center; font-size: 12px; font-family: sans-serif; background-color:#444444; cursor: pointer; padding: 6px; box-shadow: 1px 1px 1px rgba(0,0,0,.25); } #code-csp-warning:hover { text-decoration: none; background-color:#007acc; box-shadow: 2px 2px 2px rgba(0,0,0,.25); } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-light.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-dark.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } .vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before { border-left: none; } img { max-width: 100%; max-height: 100%; } a { text-decoration: none; } a:hover { text-decoration: underline; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left-width: 5px; border-left-style: solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } pre:not(.hljs), pre.hljs code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ pre code { color: var(--vscode-editor-foreground); } .vscode-light pre:not(.hljs), .vscode-light code > div { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark pre:not(.hljs), .vscode-dark code > div { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast pre:not(.hljs), .vscode-high-contrast code > div { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } 
+</style>
+<style>
+/* Tomorrow Theme */ /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */ /* Original theme - https://github.com/chriskempson/tomorrow-theme */ /* Tomorrow Comment */ .hljs-comment, .hljs-quote { color: #8e908c; } /* Tomorrow Red */ .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion { color: #c82829; } /* Tomorrow Orange */ .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link { color: #f5871f; } /* Tomorrow Yellow */ .hljs-attribute { color: #eab700; } /* Tomorrow Green */ .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #718c00; } /* Tomorrow Blue */ .hljs-title, .hljs-section { color: #4271ae; } /* Tomorrow Purple */ .hljs-keyword, .hljs-selector-tag { color: #8959a8; } .hljs { display: block; overflow-x: auto; color: #4d4d4c; padding: 0.5em; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; }
+</style>
+<style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="object-orientation-in-go">Object Orientation in Go</h1>
+<h2 id="no-inheritence">No inheritence</h2>
+<ul>
+<li>Go does not support inheritence like python, c++, java does.</li>
+<li><strong>Go takes a radically different approach to object orientation</strong>.</li>
+<li><em><strong>Go avoids talking about classes, objects, instances altogether</strong></em></li>
+<li><em><strong>Go talks only about &quot;types&quot; and &quot;values&quot; where values of certain types have methods</strong></em>.</li>
+</ul>
+<h2 id="aggregation-and-embedding">Aggregation and embedding</h2>
+<ul>
+<li>Go supports <em><strong>aggregation</strong></em> and <em><strong>embedding</strong></em> in struct types.</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">type</span> ColoredPoint <span class="hljs-keyword">struct</span> {
+    x, y        <span class="hljs-keyword">int</span> <span class="hljs-comment">// Named fields (aggregation)</span>
+    color.Color     <span class="hljs-comment">// Anonymous field (embedding)</span>
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    cp := ColoredPoint{}
+    fmt.Printf(<span class="hljs-string">"%#v"</span>, cp)
+  }
+</div></code></pre>
+</li>
+<li><strong>Anonymous fields</strong> have no variable name and are called <em><strong>embedded fields</strong></em>.</li>
+<li><strong>Named fields</strong> are called <em><strong>named aggregate fields</strong></em>.</li>
+</ul>
+<h2 id="type-safe-duck-typing">Type-safe duck typing</h2>
+<ul>
+<li>Go has excellent support for duck typing.</li>
+<li><em><strong>Interfaces</strong></em> provide you with the flexibity of doing things that duck typing allows you to.</li>
+<li>If a value has the methods that an interface requires then that value can be used anywhere the interface is expected.</li>
+<li>It does'nt matter what the actual type of the value is, it only matters that it fulfills the required interface.</li>
+</ul>
+<h2 id="seperation-of-interfaces-values-methods">Seperation of <em><strong>Interfaces, values, methods</strong></em>.</h2>
+<ul>
+<li>Interfaces are used to specify method signatures.</li>
+<li>Structs are used to specify aggregated and embedded values.</li>
+<li>Methods are used to specify operations on custom types.</li>
+<li><strong>There is explicit connection b/w a custom type's methods and any particular interface</strong>.</li>
+<li><em><strong>But if the type's methods fulfill one or more interfaces, values of that type can be used wherever values of those interfaces are expected</strong></em>.</li>
+</ul>
+<h2 id="is-a-and-has-a-relationship">IS-A and HAS-A relationship</h2>
+<ul>
+<li>The <em><strong>is-a</strong></em> relationship are defined by interfaces, i.e purely in terms of <em><strong>method signatures</strong></em>.</li>
+<li>A value that satisfies io.Reader interface <em><strong>is'nt a reader</strong></em> because of what it <em><strong>is</strong></em>, <em><strong>but because of what methods it provides</strong></em>, in this case <em><strong>Read()</strong></em> .</li>
+<li>The <em><strong>has-a</strong></em> relationship is expressed by using structs in which we aggregate or embed values of particular types.</li>
+</ul>
+<h2 id="built-in-types-and-methods">Built-in types and methods.</h2>
+<ul>
+<li>We cannot add methods to built-in types.</li>
+<li>But it is very easy to create custom types based on built-in times and add any methods to it.</li>
+</ul>
+<h2 id="custom-types">Custom types</h2>
+<ul>
+<li>A <strong>custom type</strong> is defined on a <strong>base type</strong>.</li>
+<li>The base type can be any built-in type like ints, bools, slices, channels or <strong>structs</strong> or <strong>interfaces</strong> or <strong>function signature</strong>.</li>
+<li>Go has a <strong>type statement</strong> with the syntax
+<ul>
+<li><strong><code>type typeName baseTypeSpecification</code></strong></li>
+</ul>
+</li>
+<li><em><strong>Custom types based on structs and interfaces are much more powerful than other base types because structs and interfaces provide features like embedding and aggregation which play a vital role in Go's object-orientation</strong></em>.</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">type</span> Count <span class="hljs-keyword">int</span>
+  <span class="hljs-keyword">type</span> StringMap <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>
+  <span class="hljs-keyword">type</span> IntList []<span class="hljs-keyword">int</span>
+
+  <span class="hljs-keyword">var</span> i Count = <span class="hljs-number">7</span>
+  fmt.Printf(<span class="hljs-string">"i: Type: %T and Value: %v \n"</span>, i, i) <span class="hljs-comment">// i: Type: main.Count and Value: 7</span>
+
+  <span class="hljs-keyword">var</span> ownerOf = StringMap{
+    <span class="hljs-string">"rocky"</span>: <span class="hljs-string">"johncena"</span>,
+  }
+  fmt.Printf(<span class="hljs-string">"ownerOf: Type: %T and Value: %#v \n"</span>, ownerOf, ownerOf) <span class="hljs-comment">// ownerOf: Type: main.StringMap and Value: main.StringMap{"rocky":"johncena"}</span>
+
+  <span class="hljs-keyword">var</span> scores = IntList{
+    <span class="hljs-number">4</span>, <span class="hljs-number">7</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>,
+  }
+  fmt.Printf(<span class="hljs-string">"scores: Type: %T and Value: %v"</span>, scores, scores) <span class="hljs-comment">// scores: Type: main.IntList and Value: [4 7 3 2]</span>
+</div></code></pre>
+</li>
+</ul>
+<h2 id="advantages-of-custom-types">Advantages of custom types</h2>
+<ul>
+<li>
+<p><em><strong>The interface and struct custom types have the ability to embed and aggregate other custom types which form the basis of object-orientation programs in Go</strong></em></p>
+</li>
+<li>
+<p>It improves program readability and provide an abstraction mechanism.</p>
+</li>
+<li>
+<p><em><strong>Custom function types</strong></em></p>
+<ul>
+<li><strong>When working with higher order functions it is convenient to define custom types for the signature of the functions we want to pass.</strong></li>
+</ul>
+</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">type</span> StringForString <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(<span class="hljs-keyword">string</span>)</span> <span class="hljs-title">string</span> 
+  // <span class="hljs-title">A</span> <span class="hljs-title">custom</span> <span class="hljs-title">type</span> <span class="hljs-title">that</span> <span class="hljs-title">specifies</span> <span class="hljs-title">a</span> <span class="hljs-title">function</span> <span class="hljs-title">signature</span>
+
+  // <span class="hljs-title">removePunctuation</span> <span class="hljs-title">function</span> <span class="hljs-title">has</span> <span class="hljs-title">the</span> <span class="hljs-title">type</span> <span class="hljs-title">specified</span> <span class="hljs-title">by</span> <span class="hljs-title">the</span> "<span class="hljs-title">StringForString</span>" <span class="hljs-title">custom</span> <span class="hljs-title">type</span>
+  <span class="hljs-title">func</span> <span class="hljs-title">removePunctuation</span><span class="hljs-params">(testString <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">string</span></span> {
+    newString := <span class="hljs-string">""</span>
+    <span class="hljs-keyword">for</span> _, runeCharacter := <span class="hljs-keyword">range</span> testString {
+      <span class="hljs-keyword">switch</span> character := <span class="hljs-keyword">string</span>(runeCharacter); character {
+      <span class="hljs-keyword">case</span> <span class="hljs-string">"a"</span>, <span class="hljs-string">"e"</span>, <span class="hljs-string">"i"</span>, <span class="hljs-string">"o"</span>, <span class="hljs-string">"u"</span>:
+      <span class="hljs-keyword">default</span>:
+        newString += <span class="hljs-keyword">string</span>(character)
+      }
+    }
+    <span class="hljs-keyword">return</span> newString
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">processStrings</span><span class="hljs-params">(removePunctuation StringForString, strings []<span class="hljs-keyword">string</span>)</span> []<span class="hljs-title">string</span></span> {
+    result := []<span class="hljs-keyword">string</span>{}
+    <span class="hljs-keyword">for</span> _, testString := <span class="hljs-keyword">range</span> strings {
+      result = <span class="hljs-built_in">append</span>(result, removePunctuation(testString))
+    }
+    <span class="hljs-keyword">return</span> result
+  }
+
+  <span class="hljs-keyword">var</span> stringsWithoutVowels = processStrings(removePunctuation, []<span class="hljs-keyword">string</span>{
+    <span class="hljs-string">"apple"</span>,
+    <span class="hljs-string">"peanut"</span>,
+    <span class="hljs-string">"domestic"</span>,
+  })
+
+  fmt.Printf(<span class="hljs-string">"%v \n"</span>, stringsWithoutVowels) <span class="hljs-comment">// [ppl pnt dmstc]</span>
+</div></code></pre>
+</li>
+</ul>
+<h2 id="go-methods"><strong>Go methods</strong></h2>
+<ul>
+<li>A method is a special kind of function that can be called on a value of a custom type.</li>
+<li>A method has a <strong>receiver</strong> b/w func keyword and the name.</li>
+<li><strong>Receiver</strong> defines the type the method belongs to.</li>
+<li>It can be value type or a pointer type.</li>
+<li>We can call all the functions that are defined to be methods of a custom type on values of that type.</li>
+<li>When the method is called, the receiver variable is automatically set to the value or the pointer on which the method is called.</li>
+</ul>
+<h2 id="pointer-receivers-value-receivers-and-indirection">Pointer receivers, Value receivers and indirection</h2>
+<ul>
+<li>
+<pre class="hljs"><code><div>    <span class="hljs-keyword">type</span> Vertex <span class="hljs-keyword">struct</span> {x, y <span class="hljs-keyword">int</span>}
+
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(pv *Vertex)</span> <span class="hljs-title">Scale</span><span class="hljs-params">(f <span class="hljs-keyword">float64</span>)</span></span> {
+      pv.x = pv.x * f
+      pv.y = pv.y * f
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(pv *Vertex)</span> <span class="hljs-title">Move</span><span class="hljs-params">(dx, dy <span class="hljs-keyword">float64</span>)</span></span> {
+      pv.x = pv.x + dx
+      pv.y = pv.y + dy
+    }
+
+    <span class="hljs-comment">/* Scale and Move are functions that are defined to be received by values of type *Vertex */</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+      v := Vertex{<span class="hljs-number">3</span>, <span class="hljs-number">4</span>}
+      v.Scale(<span class="hljs-number">2</span>) <span class="hljs-comment">// Go interprts this as (&amp;v).Scale(2)</span>
+      fmt.Printf(<span class="hljs-string">"%#v \n"</span>, v) <span class="hljs-comment">// main.Vertex{x: 6, y:8}</span>
+      v.Move(<span class="hljs-number">5</span>, <span class="hljs-number">5</span>) <span class="hljs-comment">// Go interprets this as (&amp;v).Move(5, 5)</span>
+      fmt.Printf(<span class="hljs-string">"%#v \n"</span>, v) <span class="hljs-comment">// main.Vertex{x: 11, y:13}</span>
+    }
+</div></code></pre>
+</li>
+<li><strong>Pointer receivers</strong>:- Methods with a pointer receiver operates on pointer to a value and can modify the value on which the method is called through indirection.</li>
+<li><strong>Value receivers</strong>:- Methods with a value receiver operates on a copy of the original value on which the method is called and hence it cannot modify the original value.</li>
+<li><em><strong>Methods often need to modify their receiver, so pointer receivers are much more common than value receivers</strong></em>.</li>
+<li><em><strong>Methods with pointer receivers can be called on either a pointer or a value. Go provides this as a convinience for method calls, it iterprets <code>v.Scale(2)</code> as <code>(&amp;v).Scale(2)</code></strong></em></li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">type</span> Vertex <span class="hljs-keyword">struct</span> {x, y <span class="hljs-keyword">int</span>}
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(v Vertex)</span> <span class="hljs-title">Scale</span><span class="hljs-params">(f <span class="hljs-keyword">float64</span>)</span></span> {
+    v.x = v.x * f
+    v.y = v.y * f
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(v Vertex)</span> <span class="hljs-title">Move</span><span class="hljs-params">(dx, dy <span class="hljs-keyword">float64</span>)</span></span> {
+    v.x = v.x + dx
+    v.y = v.y + dy
+  }
+
+  <span class="hljs-comment">/* Scale and Move are functions that are defined to be received by values of type Vertex */</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    v := Vertex{<span class="hljs-number">3</span>, <span class="hljs-number">4</span>}
+    (&amp;v).Scale(<span class="hljs-number">2</span>) <span class="hljs-comment">// Go interprts this as (*&amp;v).Scale(2)</span>
+    fmt.Printf(<span class="hljs-string">"%#v \n"</span>, v) <span class="hljs-comment">// main.Vertex{x: 3, y:4}</span>
+    (&amp;v).Move(<span class="hljs-number">5</span>, <span class="hljs-number">5</span>) <span class="hljs-comment">// Go interprets this as (*&amp;v).Move(5, 5)</span>
+    fmt.Printf(<span class="hljs-string">"%#v \n"</span>, *pv) <span class="hljs-comment">// main.Vertex{x: 3, y:4}</span>
+  }
+</div></code></pre>
+</li>
+<li><em><strong>Methods with value receivers can be called on either a value or a pointer</strong></em>.</li>
+<li><em><strong>Go provides this as a convenience also, it interprets <code>(&amp;v).Scale(2)</code> as <code>(*&amp;v).Scale(2)</code></strong></em></li>
+</ul>
+<h2 id="method-set">Method set</h2>
+<ul>
+<li><em><strong>Method set of a type</strong></em> - A type's method set consists of all the methods that can be called on a value of that type.</li>
+</ul>
+<h2 id="embedded-fields">Embedded Fields</h2>
+<ul>
+<li>structs in Go can include one or types as <em><strong>embedded fields</strong></em></li>
+<li>The fields of embedded type can the accessed by embeder through name of the embedded Type if the embeder also has a field with the same name.</li>
+<li>If there is no field in embeder with same name of embedded's field's then you can access the embedded'd fields through the plain dor notation.</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">type</span> Item <span class="hljs-keyword">struct</span> {
+    id <span class="hljs-keyword">string</span>
+    price <span class="hljs-keyword">float64</span>
+    quantity <span class="hljs-keyword">int</span>
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(item *Item)</span> <span class="hljs-title">Cost</span><span class="hljs-params">()</span> <span class="hljs-title">float64</span></span> {
+    <span class="hljs-keyword">return</span> item.price * <span class="hljs-keyword">float64</span>(item.quantity)
+  }
+  
+  <span class="hljs-comment">// SpecialItem is a custom type that embeds the Item type</span>
+  <span class="hljs-keyword">type</span> SpecialItem <span class="hljs-keyword">struct</span> {
+    Item <span class="hljs-comment">// Anonymous field (embedding)</span>
+    catalogID <span class="hljs-keyword">int</span>
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    specialItem := SpecialItem{
+      Item{<span class="hljs-string">"1xd4r"</span>, <span class="hljs-number">23.56</span>, <span class="hljs-number">3</span>}, <span class="hljs-number">1234569</span>,
+    }
+    fmt.Printf(<span class="hljs-string">"%#v \n"</span>, specialItem) 
+    <span class="hljs-comment">// main.SpecialItem{Item:main.Item{id:"1xd4r", price:23.56, quantity:3}, catalogID:1234569}</span>
+    fmt.Printf(<span class="hljs-string">"%v \n"</span>, specialItem.Cost()) <span class="hljs-comment">// 70.67999999999999</span>
+    <span class="hljs-comment">// Can call Item type's Cost() method on SpecialItem type</span>
+
+    fmt.Printf(<span class="hljs-string">"specialItem.id: %v, specialItem.price: %v, specialItem.quantity: %v, specialItem.catalogID: %v"</span>, specialItem.id, specialItem.price, specialItem.quantity, specialItem.catalogID)
+    <span class="hljs-comment">// specialItem.id: 1xd4r, specialItem.price: 23.56, specialItem.quantity: 3, specialItem.catalogID: 12</span>
+  }
+</div></code></pre>
+</li>
+<li><strong>Key concept of embedding</strong> - If a type B embed's type A, then we can call type A's methods on type B's values.</li>
+<li><strong>Also, when a method of the embedded type is called on the embeder's type, only the embedded value is passed to the method, not the embeder's value</strong>.</li>
+</ul>
+<h2 id="overriding-methods">Overriding methods</h2>
+<ul>
+<li>You can define methods for the embeder type that override methods of the embedded type.</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">type</span> LuxuryItem <span class="hljs-keyword">struct</span> {
+    Item <span class="hljs-comment">// embedded type</span>
+    markup <span class="hljs-keyword">float64</span>
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(luxuryItem *LuxuryItem)</span> <span class="hljs-title">Cost</span><span class="hljs-params">()</span> <span class="hljs-title">float64</span></span> {
+    <span class="hljs-keyword">return</span> luxuryItem.Item.Cost() * item.markup <span class="hljs-comment">// Makes use of embedded type's method.</span>
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    luxuryItem := LuxuryItem{
+      Item{<span class="hljs-string">"1xd4r"</span>, <span class="hljs-number">23.56</span>, <span class="hljs-number">3</span>}, <span class="hljs-number">3.5</span>,
+    }
+    fmt.Printf(<span class="hljs-string">"%#v \n"</span>, luxuryItem) 
+    <span class="hljs-comment">// main.LuxuryItem{Item:main.Item{id:"1xd4r", price:23.56, quantity:3}, markup:3.5}</span>
+    fmt.Printf(<span class="hljs-string">"%v \n"</span>, luxuryItem.Cost()) <span class="hljs-comment">// 247.37999999999997</span>
+  }
+</div></code></pre>
+</li>
+</ul>
+<h2 id="interfaces">Interfaces</h2>
+<ul>
+<li>An <em><strong>Interface</strong></em> is <strong>custom type</strong> in Go that specifies a set of <em><strong>method signatures</strong></em>.</li>
+<li>A type is said to <em><strong>satisfy</strong></em> an interface when the type has all the methods which the interface requires.</li>
+<li>Values of such types can be used wherever it's interface type is expected.</li>
+<li>Interfaces on their are of no use, we need <em><strong>concrete types</strong></em> that implement them to make them useful.</li>
+<li><em><strong>In Go, duck typing is acheived by using interfaces.</strong></em></li>
+<li><strong>Interface naming convention</strong>: In Go, names of interfaces should end with 'er'. ex:- Exchanger, Stringer etc.</li>
+</ul>
+<h2 id="no-%22implements%22-statement">No &quot;implements&quot; statement</h2>
+<ul>
+<li><em><strong>Also, there is no need of explicit statements to specify that a particular custom type implements a particular interface using keywords like &quot;inherits&quot;, &quot;extends&quot;, &quot;implements&quot;.</strong></em></li>
+<li><em><strong>It is sufficient for a custom type to provide the methods specified by an interface for Go to know that the type satisfies the interface</strong></em></li>
+<li><em><strong>The above feature of Go makes it very flexible, i.e it becomes very easy to add new interfaces, new types and methods without thinking about any concept of inheritence.</strong></em></li>
+</ul>
+<h2 id="interface-values">Interface Values</h2>
+<ul>
+<li><strong>Under the hood, value of an interface type can be thought of as a tuple of a value and a concrete type - (value, concrete type)</strong>.</li>
+<li>An interface holds a value of a specific underlying concrete type.</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-comment">// Exchanger is a custom interface type that specifies a single method</span>
+  <span class="hljs-keyword">type</span> Exchanger <span class="hljs-keyword">interface</span> {
+    Exchange()
+  }
+
+  <span class="hljs-comment">// StringPair is a custom structure type that aggregates 2 string type fields.</span>
+  <span class="hljs-keyword">type</span> StringPair <span class="hljs-keyword">struct</span> {
+    first, second <span class="hljs-keyword">string</span>
+  }
+
+  <span class="hljs-comment">// Exchange is a method on *StringPair type</span>
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(pair *StringPair)</span> <span class="hljs-title">Exchange</span><span class="hljs-params">()</span></span> {
+    pair.first, pair.second = pair.second, pair.first
+  }
+
+  <span class="hljs-comment">// String is a method on StringPair type</span>
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(pair StringPair)</span> <span class="hljs-title">String</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span> {
+    <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">"%q+%q"</span>, pair.first, pair.second)
+  }
+
+  <span class="hljs-comment">// Point is a custom integer array type</span>
+  <span class="hljs-keyword">type</span> Point [<span class="hljs-number">2</span>]<span class="hljs-keyword">int</span>
+
+  <span class="hljs-comment">// Exchange is a method on *Point type</span>
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(point *Point)</span> <span class="hljs-title">Exchange</span><span class="hljs-params">()</span></span> {
+    point[<span class="hljs-number">0</span>], point[<span class="hljs-number">1</span>] = point[<span class="hljs-number">1</span>], point[<span class="hljs-number">0</span>]
+  }
+
+  <span class="hljs-comment">// String is a method on Point type</span>
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(point Point)</span> <span class="hljs-title">String</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span> {
+    <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">"%v, %v"</span>, point[<span class="hljs-number">0</span>], point[<span class="hljs-number">1</span>])
+  }
+
+  <span class="hljs-comment">// ExchangeThese takes Exchanger slice type as asrgument and calls the Exchange() method on elements of the Exchanger slice</span>
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">ExchangeThese</span><span class="hljs-params">(exchangers []Exchanger)</span></span> {
+    <span class="hljs-keyword">for</span> _, exchanger := <span class="hljs-keyword">range</span> exchangers {
+      exchanger.Exchange()
+    }
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">var</span> cavil Exchanger  <span class="hljs-comment">// variable of type Exchanger interface</span>
+  cavil = &amp;StringPair{<span class="hljs-string">"henry"</span>, <span class="hljs-string">"cavil"</span>} <span class="hljs-comment">// value of the Exchanger interface type</span>
+    point := Point{<span class="hljs-number">3</span>, <span class="hljs-number">7</span>}
+    fmt.Printf(<span class="hljs-string">"before Exchange call:\n %v %v \n"</span>, cavil, point)
+    <span class="hljs-comment">// before Exchange call: "henry"+"cavil" 3, 7</span>
+
+    cavil.Exchange()
+    point.Exchange()
+    fmt.Printf(<span class="hljs-string">"after Exchange call:\n %v %v \n"</span>, cavil, point)
+    <span class="hljs-comment">// after Exchange call: "cavil"+"henry" 7, 3</span>
+
+    banner := StringPair{<span class="hljs-string">"bruce"</span>, <span class="hljs-string">"banner"</span>}
+    fmt.Printf(<span class="hljs-string">"before exchangeThese call:\n %v %v %v \n"</span>, cavil, banner, point)
+    <span class="hljs-comment">// before exchangeThese call: "cavil"+"henry" "bruce"+"banner" 7, 3</span>
+
+    exchangers := []Exchanger{
+      <span class="hljs-comment">// The following pointers are of Exchanger type because they have a method with signature Exchange().</span>
+      cavil, &amp;banner, &amp;point,
+    }
+    ExchangeThese(exchangers)
+    fmt.Printf(<span class="hljs-string">"after exchangeThese call:\n %v %v %v \n"</span>, cavil, banner, point)
+    <span class="hljs-comment">// after exchangeThese call: "henry"+"cavil" "banner"+"bruce" 3, 7</span>
+
+    readers := []io.Reader{
+      <span class="hljs-comment">// The following pointers are of io.Reader type because they have a method with signature Read([]byte) (int, error)</span>
+      &amp;StringPair{<span class="hljs-string">"joe"</span>, <span class="hljs-string">"rogan"</span>},
+      &amp;StringPair{<span class="hljs-string">"bobby"</span>, <span class="hljs-string">"lee"</span>},
+    }
+
+    <span class="hljs-keyword">for</span> _, reader := <span class="hljs-keyword">range</span> readers {
+      raw, err := ToBytes(reader, <span class="hljs-number">16</span>)
+      <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+        fmt.Println(err)
+      }
+      fmt.Println(raw)
+      fmt.Printf(<span class="hljs-string">"%q\n"</span>, raw)
+    }
+    <span class="hljs-comment">// [106 111 101 114 111 103 97 110]</span>
+    <span class="hljs-comment">// "joerogan"</span>
+    <span class="hljs-comment">// [98 111 98 98 121 108 101 101]</span>
+    <span class="hljs-comment">// "bobbylee"</span>
+  }
+</div></code></pre>
+</li>
+<li>Some built-in interfaces:-
+<ul>
+<li><strong><code>fmt.Stringer</code></strong> - specifies 1 method</li>
+<li><strong><code>io.Reader</code></strong> - specifies 1 method</li>
+<li><strong><code>io.Writer</code></strong> - specifies 1 method</li>
+</ul>
+</li>
+<li>The empty interface type <strong><code>interface{}</code></strong> is satisfied or implemented by all types.</li>
+<li>So every value is of the type <strong><code>interface{}</code></strong>.</li>
+</ul>
+<h2 id="type-assertions">Type assertions</h2>
+<ul>
+<li><strong>Type assertion provides access to an interface value's underlying concrete type.</strong></li>
+<li><strong>Type assertion is a form of type convertion in which you convert a value an <strong><code>interface</code></strong> type into the value's underlying concrete type</strong>.</li>
+<li>The same type convertion can be acheived using <strong>type switch</strong> and <strong>introspection</strong> using reflect package.</li>
+<li>Syntax for type assertions
+<ul>
+<li><strong><code>resultOfConcreteType, boolean := expression.(concreteType)</code></strong> // Checked</li>
+<li><strong><code>resultOfConcreteType := expression.(concreteType)</code></strong> // Unchecked; panic() on failure.</li>
+</ul>
+</li>
+<li><strong><code>t := i.(T)</code></strong></li>
+<li>The statement asserts that the interface value <code>i</code> holds the concrete type <code>T</code> and assigns the underlying <code>T</code> value to a variable t.</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    <span class="hljs-keyword">var</span> i <span class="hljs-keyword">interface</span>{} = <span class="hljs-number">99</span>
+    <span class="hljs-keyword">var</span> s <span class="hljs-keyword">interface</span>{} = []<span class="hljs-keyword">string</span>{<span class="hljs-string">"bob"</span>, <span class="hljs-string">"dylan"</span>}
+    <span class="hljs-comment">/* Note that if we printed the original i and s variables (both of type interface{}) they would be printed as an int and a []string. This is because when the fmt package’s print functions are faced with interface{} types, they are sensible enough to print the actual underlying values. */</span>
+
+
+    <span class="hljs-keyword">if</span> i, ok := i.(<span class="hljs-keyword">int</span>); ok {
+      fmt.Printf(<span class="hljs-string">"%T→%d\n"</span>, i, i) <span class="hljs-comment">// i is a shadow variable of type int</span>
+      <span class="hljs-comment">// int→99</span>
+    }
+
+    <span class="hljs-keyword">if</span> s, ok := s.([]<span class="hljs-keyword">string</span>); ok {
+      fmt.Printf(<span class="hljs-string">"%T→%q\n"</span>, s, s) <span class="hljs-comment">// s is a shadow variable of type []string</span>
+      <span class="hljs-comment">// []string→["bob" "dylan"]</span>
+    }
+
+    <span class="hljs-comment">// Checking if a value is of of a specific interface type and only</span>
+    <span class="hljs-comment">// if it is, call the methods specified by that interface on that</span>
+    <span class="hljs-comment">// value</span>
+    <span class="hljs-keyword">type</span> IsValider <span class="hljs-keyword">interface</span> {
+      IsValid() <span class="hljs-keyword">bool</span>
+    }
+
+    <span class="hljs-comment">// x is a variable defined here</span>
+
+    <span class="hljs-keyword">if</span> thing, ok := x.(IsValider) ; ok {
+      thing.IsValid()
+      <span class="hljs-comment">// do stuff</span>
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// x is not an IsValider</span>
+    }
+  }
+</div></code></pre>
+</li>
+<li>It is quite common when doing type assertions to use the same name for the result value as for the original value i.e to shadow variables.</li>
+</ul>
+<h2 id="interface-embedding">Interface embedding</h2>
+<ul>
+<li>
+<p>Interfaces have excellent support for embedding other interfaces.</p>
+</li>
+<li>
+<p>The effect is that the embedded interface's method signatures become a part of the embeder's interface.</p>
+</li>
+<li>
+<p>This way we can make use of existing interfaces and create new interfaces very easily.</p>
+</li>
+<li>
+<p><strong>A pattern of tiny methods that rely on functions to do the work is very common in Go.</strong></p>
+</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">type</span> StringPair <span class="hljs-keyword">struct</span> {
+    first, second <span class="hljs-keyword">string</span>
+  }
+
+  <span class="hljs-keyword">type</span> LowerCaser <span class="hljs-keyword">interface</span> {
+    LowerCase()
+  }
+
+  <span class="hljs-keyword">type</span> UpperCaser <span class="hljs-keyword">interface</span> {
+    UpperCase()
+  }
+
+  <span class="hljs-keyword">type</span> LowerUpperCaser <span class="hljs-keyword">interface</span> {
+    LowerCaser <span class="hljs-comment">// As if we had written LowerCase()</span>
+    UpperCaser <span class="hljs-comment">// As if we had written UpperCase()</span>
+  }
+
+  <span class="hljs-keyword">type</span> FixCaser <span class="hljs-keyword">interface</span> {
+    FixCase()
+  }
+
+  <span class="hljs-keyword">type</span> ChangeCaser <span class="hljs-keyword">interface</span> {
+    LowerUpperCaser <span class="hljs-comment">// As if we had written LowerCase(); UpperCase()</span>
+    FixCaser        <span class="hljs-comment">// As if we had written FixCase()</span>
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(pair *StringPair)</span> <span class="hljs-title">UpperCase</span><span class="hljs-params">()</span></span> {
+    pair.first = strings.ToUpper(pair.first)
+    pair.second = strings.ToUpper(pair.second)
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(pair *StringPair)</span> <span class="hljs-title">LowerCase</span><span class="hljs-params">()</span></span> {
+    pair.first = strings.ToLower(pair.first)
+    pair.second = strings.ToLower(pair.second)
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(pair *StringPair)</span> <span class="hljs-title">FixCase</span><span class="hljs-params">()</span></span> {
+    pair.first = fixCase(pair.first)
+    pair.second = fixCase(pair.second)
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">fixCase</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>)</span> <span class="hljs-title">string</span></span> {
+    <span class="hljs-keyword">var</span> chars []<span class="hljs-keyword">rune</span>
+    upper := <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">for</span> _, char := <span class="hljs-keyword">range</span> s {
+      <span class="hljs-keyword">if</span> upper {
+        char = unicode.ToUpper(char)
+      } <span class="hljs-keyword">else</span> {
+        char = unicode.ToLower(char)
+      }
+      chars = <span class="hljs-built_in">append</span>(chars, char)
+      upper = unicode.IsSpace(char) || unicode.Is(unicode.Hyphen, char)
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">string</span>(chars)
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    lobelia := StringPair{<span class="hljs-string">"LOBELIA"</span>, <span class="hljs-string">"SACKVILLE-BAGGINS"</span>}
+    <span class="hljs-comment">// Values of *StringPair belong to all of these custom interface types</span>
+    <span class="hljs-comment">// 1. LowerCaser</span>
+    <span class="hljs-comment">// 2. UpperCaser</span>
+    <span class="hljs-comment">// 3. LowerUpperCaser</span>
+    <span class="hljs-comment">// 4. FixCaser</span>
+    <span class="hljs-comment">// 5. ChangeCaser</span>
+    <span class="hljs-comment">//</span>
+    lobelia.FixCase()
+    fmt.Printf(<span class="hljs-string">"%#v \n"</span>, lobelia)
+    <span class="hljs-comment">// main.StringPair{first:"Lobelia", second:"Sackville-Baggins"}</span>
+  }
+</div></code></pre>
+</li>
+</ul>
+<h2 id="structs">Structs</h2>
+<ul>
+<li>Structs in Go are used aggregate and embed values together.</li>
+<li>Really useful when values are of different types, slice cannot do this because it needs all of it's values to be of the same type (although we can use type interface{} to store values of any type in a slice).</li>
+<li><em><strong>Go allows us to annotate struct fields with strings (called tags in Go terminology).</strong></em></li>
+<li><em><strong>Go allows to create and initialize structs with only those fields we want using the syntax fieldName: fieldValue</strong></em>.</li>
+<li><em><strong>Anonymous structs</strong></em> - These structs can be used like built-in types to declare types and values (with composite literal syntax)</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-comment">// with 'var' declaration and NO explicit initialization</span>
+  <span class="hljs-keyword">var</span> name <span class="hljs-keyword">struct</span>{ first, last <span class="hljs-keyword">string</span> }
+  name.first = <span class="hljs-string">"andres"</span>
+  name.last = <span class="hljs-string">"iniesta"</span>
+  fmt.Printf(<span class="hljs-string">"%#v \n"</span>, name)
+
+
+  <span class="hljs-comment">// SVD with struct type spec and composite literal</span>
+  <span class="hljs-comment">// ex: 1</span>
+  person := <span class="hljs-keyword">struct</span>{
+    age <span class="hljs-keyword">int</span> 
+    name <span class="hljs-keyword">string</span>
+    isMarried <span class="hljs-keyword">bool</span>
+    ownsABitch <span class="hljs-keyword">bool</span>
+  }{
+    age: <span class="hljs-number">20</span>,
+    name: <span class="hljs-string">"lionel messi"</span>,
+    <span class="hljs-comment">// the rest of the fields are initialized to their zero value</span>
+  }
+  fmt.Printf(<span class="hljs-string">"%#v \n"</span>, person)
+  <span class="hljs-comment">// {20 lionel messi false false}</span>
+
+  <span class="hljs-comment">// ex: 2 // by not including the field names in composite literal</span>
+  points := []<span class="hljs-keyword">struct</span>{ x, y <span class="hljs-keyword">int</span> }{
+    {<span class="hljs-number">4</span>, <span class="hljs-number">6</span>},
+    {},
+    {<span class="hljs-number">-7</span>, <span class="hljs-number">11</span>},
+    {<span class="hljs-number">15</span>, <span class="hljs-number">17</span>},
+    {<span class="hljs-number">4</span>, <span class="hljs-number">8</span>},
+  }
+  <span class="hljs-keyword">for</span> _, point := <span class="hljs-keyword">range</span> points {
+    fmt.Printf(<span class="hljs-string">"(%d, %d) \n"</span>, point.x, point.y)
+  }
+  <span class="hljs-comment">/*
+    (4, 6)
+    (0, 0)
+    (-7, 11)
+    (15, 17)
+    (4, 8)
+  */</span>
+</div></code></pre>
+</li>
+</ul>
+<h2 id="struct-embedding">Struct embedding.</h2>
+<ul>
+<li>Structs can be embedded with other structs just like we do for interfaces, by including the type name of a struct as an anonymous field inside another struct.</li>
+<li><em><strong>The purpose of embedding struct's is to include the fields of those struct's in the ember's struct, and Go makes this very easy</strong></em>.</li>
+<li><strong>Embedded field's name can be accessed directly by the .(dot) selector operator without mentioning the type name if there is no collision b/w the names of the embedded struct and the embeder struct</strong>.</li>
+<li><em><strong>Every field name of a struct must be unique, if not Go raises compilation error</strong></em>.</li>
+</ul>
+<h2 id="embedding-values">Embedding values</h2>
+<ul>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-comment">// Person is a custom structure type</span>
+  <span class="hljs-keyword">type</span> Person <span class="hljs-keyword">struct</span> {
+    Name      <span class="hljs-keyword">string</span>
+    ForeNames []<span class="hljs-keyword">string</span>
+    SurName   <span class="hljs-keyword">string</span>
+  }
+
+  <span class="hljs-comment">// Author is custom structure type that embed's the Person structure type, so that field's of Person type will be available in this type.</span>
+  <span class="hljs-keyword">type</span> Author <span class="hljs-keyword">struct</span> {
+    Person <span class="hljs-comment">// anonymous field (embedding)</span>
+    BookTitles []<span class="hljs-keyword">string</span>
+    YearBorn   <span class="hljs-keyword">int</span>
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    author := Author{
+      Person{<span class="hljs-string">"robert"</span>, []<span class="hljs-keyword">string</span>{<span class="hljs-string">"louis"</span>, <span class="hljs-string">"bob"</span>, <span class="hljs-string">"max"</span>}, <span class="hljs-string">"martin"</span>},
+      []<span class="hljs-keyword">string</span>{<span class="hljs-string">"GOT"</span>, <span class="hljs-string">"GOT2"</span>, <span class="hljs-string">"GOT3"</span>, <span class="hljs-string">"GOT4"</span>},
+      <span class="hljs-number">1950</span>,
+    }
+
+    fmt.Println(<span class="hljs-string">"author.Person \n"</span>, author.Person)
+    <span class="hljs-comment">// author.Person</span>
+    <span class="hljs-comment">// {robert [louis bob max] martin}</span>
+
+    fmt.Println(<span class="hljs-string">"author.Name, author.ForeNames, author.SurName \n"</span>, author.Name, author.ForeNames, author.SurName)
+    <span class="hljs-comment">// author.Name, author.ForeNames, author.SurName</span>
+    <span class="hljs-comment">// robert [louis bob max] martin</span>
+
+    fmt.Println(<span class="hljs-string">"author.BookTitles, author.YearBorn \n"</span>, author.BookTitles, author.YearBorn)
+    <span class="hljs-comment">// author.BookTitles, author.YearBorn</span>
+    <span class="hljs-comment">// [GOT GOT2 GOT3 GOT4] 1950</span>
+  }
+</div></code></pre>
+</li>
+</ul>
+<h2 id="embedding-values-that-have-methods">Embedding values that have methods</h2>
+<ul>
+<li>By embedding values that have methods, the embeder value will get those methods.</li>
+<li><em><strong>When an embedded field's method is called on a value of the embeder, it is only the embedded field value that gets passed as the method's receiver, not the embeder value</strong></em></li>
+</ul>
+<h2 id="embedding-interfaces">Embedding interfaces</h2>
+<ul>
+<li>You can also embed interface types as fields in a struct.</li>
+<li>By doing so, you can assign a value which satisfies the interface to that interface type field.</li>
+</ul>
+
+    </body>
+    </html>

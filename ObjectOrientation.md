@@ -110,12 +110,11 @@
 
 ## **Go methods**
 - A method is a special kind of function that can be called on a value of a custom type.
-- The value is passed as a pointer or a value depending upon how the method is defined.
 - A method has a **receiver** b/w func keyword and the name.
-- The **receiver type** is type the method belongs to. 
-- So now, the function is associated with a **custom type**.
-- We can call all the functions that are defined to be methods of the custom type on values of that type.
-- When the method is called, the receiver's variable(if present) is automatically set to the value or the pointer on which the method is called.
+- **Receiver** defines the type the method belongs to.
+- It can be value type or a pointer type.
+- We can call all the functions that are defined to be methods of a custom type on values of that type.
+- When the method is called, the receiver variable is automatically set to the value or the pointer on which the method is called.
 
 ## Pointer receivers, Value receivers and indirection
 - ```go
@@ -143,9 +142,8 @@
     ```
 - **Pointer receivers**:- Methods with a pointer receiver operates on pointer to a value and can modify the value on which the method is called through indirection.
 - **Value receivers**:- Methods with a value receiver operates on a copy of the original value on which the method is called and hence it cannot modify the original value.
-- **Methods often need to modify their receiver, so pointer receivers are much more common than value receivers**.
-- **Methods with pointer receivers can be called on either a pointer or a value**.
-- **Go provides this as a convinience for method calls, it iterprets `v.Scale(2)` as `(&v).Scale(2)`**
+- ***Methods often need to modify their receiver, so pointer receivers are much more common than value receivers***.
+- ***Methods with pointer receivers can be called on either a pointer or a value. Go provides this as a convinience for method calls, it iterprets `v.Scale(2)` as `(&v).Scale(2)`***
 - ```go
     type Vertex struct {x, y int}
 
@@ -169,8 +167,8 @@
       fmt.Printf("%#v \n", *pv) // main.Vertex{x: 3, y:4}
     }
     ```
-- **Methods with value receivers can be called on either a value or a pointer**.
-- **Go provides this as a convenience also, it interprets `(&v).Scale(2)` as `(*&v).Scale(2)`**
+- ***Methods with value receivers can be called on either a value or a pointer***.
+- ***Go provides this as a convenience also, it interprets `(&v).Scale(2)` as `(*&v).Scale(2)`***
 
 ## Method set
 - ***Method set of a type*** - A type's method set consists of all the methods that can be called on a value of that type.
@@ -386,6 +384,14 @@
     }
     ```
 - It is quite common when doing type assertions to use the same name for the result value as for the original value i.e to shadow variables.
+
+## When and why to use type assertions?
+- Any value that has the method signatures specified by an interface, can be used wherever that interface value is expected.
+- But the reverse is sooo not true.
+- If a function is expecting a value of a concrete type, you cannot pass a value of type **`interface{}`** even though this **`interface{}`** type value holds value of the required concrete type.
+- This is simply because Go is a strongly typed language.
+- It means that, Go does'nt allow for values of typeB to be assigned to variables of typeA.
+- ***UNLESS***, typeA is an interface which makes any values that satisfy the interface assignable to that type.
 
 ## Interface embedding
 - Interfaces have excellent support for embedding other interfaces.

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-alpha/dist/katex.min.css" integrity="sha384-BTL0nVi8DnMrNdMQZG1Ww6yasK9ZGnUxL1ZWukXQ7fygA1py52yPp9W4wrR00VML" crossorigin="anonymous">
+        <style>
+/*--------------------------------------------------------------------------------------------- * Copyright (c) Microsoft Corporation. All rights reserved. * Licensed under the MIT License. See License.txt in the project root for license information. *--------------------------------------------------------------------------------------------*/ body { font-family: "Segoe WPC", "Segoe UI", "SFUIText-Light", "HelveticaNeue-Light", sans-serif, "Droid Sans Fallback"; font-size: 14px; padding: 0 26px; line-height: 22px; word-wrap: break-word; } #code-csp-warning { position: fixed; top: 0; right: 0; color: white; margin: 16px; text-align: center; font-size: 12px; font-family: sans-serif; background-color:#444444; cursor: pointer; padding: 6px; box-shadow: 1px 1px 1px rgba(0,0,0,.25); } #code-csp-warning:hover { text-decoration: none; background-color:#007acc; box-shadow: 2px 2px 2px rgba(0,0,0,.25); } body.scrollBeyondLastLine { margin-bottom: calc(100vh - 22px); } body.showEditorSelection .code-line { position: relative; } body.showEditorSelection .code-active-line:before, body.showEditorSelection .code-line:hover:before { content: ""; display: block; position: absolute; top: 0; left: -12px; height: 100%; } body.showEditorSelection li.code-active-line:before, body.showEditorSelection li.code-line:hover:before { left: -30px; } .vscode-light.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(0, 0, 0, 0.15); } .vscode-light.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(0, 0, 0, 0.40); } .vscode-light.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-dark.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 255, 255, 0.4); } .vscode-dark.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 255, 255, 0.60); } .vscode-dark.showEditorSelection .code-line .code-line:hover:before { border-left: none; } .vscode-high-contrast.showEditorSelection .code-active-line:before { border-left: 3px solid rgba(255, 160, 0, 0.7); } .vscode-high-contrast.showEditorSelection .code-line:hover:before { border-left: 3px solid rgba(255, 160, 0, 1); } .vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before { border-left: none; } img { max-width: 100%; max-height: 100%; } a { text-decoration: none; } a:hover { text-decoration: underline; } a:focus, input:focus, select:focus, textarea:focus { outline: 1px solid -webkit-focus-ring-color; outline-offset: -1px; } hr { border: 0; height: 2px; border-bottom: 2px solid; } h1 { padding-bottom: 0.3em; line-height: 1.2; border-bottom-width: 1px; border-bottom-style: solid; } h1, h2, h3 { font-weight: normal; } h1 code, h2 code, h3 code, h4 code, h5 code, h6 code { font-size: inherit; line-height: auto; } table { border-collapse: collapse; } table > thead > tr > th { text-align: left; border-bottom: 1px solid; } table > thead > tr > th, table > thead > tr > td, table > tbody > tr > th, table > tbody > tr > td { padding: 5px 10px; } table > tbody > tr + tr > td { border-top: 1px solid; } blockquote { margin: 0 7px 0 5px; padding: 0 16px 0 10px; border-left-width: 5px; border-left-style: solid; } code { font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback"; font-size: 14px; line-height: 19px; } body.wordWrap pre { white-space: pre-wrap; } .mac code { font-size: 12px; line-height: 18px; } pre:not(.hljs), pre.hljs code > div { padding: 16px; border-radius: 3px; overflow: auto; } /** Theming */ pre code { color: var(--vscode-editor-foreground); } .vscode-light pre:not(.hljs), .vscode-light code > div { background-color: rgba(220, 220, 220, 0.4); } .vscode-dark pre:not(.hljs), .vscode-dark code > div { background-color: rgba(10, 10, 10, 0.4); } .vscode-high-contrast pre:not(.hljs), .vscode-high-contrast code > div { background-color: rgb(0, 0, 0); } .vscode-high-contrast h1 { border-color: rgb(0, 0, 0); } .vscode-light table > thead > tr > th { border-color: rgba(0, 0, 0, 0.69); } .vscode-dark table > thead > tr > th { border-color: rgba(255, 255, 255, 0.69); } .vscode-light h1, .vscode-light hr, .vscode-light table > tbody > tr + tr > td { border-color: rgba(0, 0, 0, 0.18); } .vscode-dark h1, .vscode-dark hr, .vscode-dark table > tbody > tr + tr > td { border-color: rgba(255, 255, 255, 0.18); } 
+</style>
+<style>
+/* Tomorrow Theme */ /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */ /* Original theme - https://github.com/chriskempson/tomorrow-theme */ /* Tomorrow Comment */ .hljs-comment, .hljs-quote { color: #8e908c; } /* Tomorrow Red */ .hljs-variable, .hljs-template-variable, .hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class, .hljs-regexp, .hljs-deletion { color: #c82829; } /* Tomorrow Orange */ .hljs-number, .hljs-built_in, .hljs-builtin-name, .hljs-literal, .hljs-type, .hljs-params, .hljs-meta, .hljs-link { color: #f5871f; } /* Tomorrow Yellow */ .hljs-attribute { color: #eab700; } /* Tomorrow Green */ .hljs-string, .hljs-symbol, .hljs-bullet, .hljs-addition { color: #718c00; } /* Tomorrow Blue */ .hljs-title, .hljs-section { color: #4271ae; } /* Tomorrow Purple */ .hljs-keyword, .hljs-selector-tag { color: #8959a8; } .hljs { display: block; overflow-x: auto; color: #4d4d4c; padding: 0.5em; } .hljs-emphasis { font-style: italic; } .hljs-strong { font-weight: bold; }
+</style>
+<style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'HelveticaNeue-Light', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 id="gos-philosophy"><strong>Go's philosophy</strong></h2>
+<p><em><strong>Go aims to provide everything that programmers need, including many powerful and convenient features while keeping the language as small, consistent, and fast (to build and run) as possible.</strong></em></p>
+<h2 id="workspace"><strong>WORKSPACE</strong>:</h2>
+<ul>
+<li>It is the project directory.</li>
+<li>The location of workspace should be present as one of the colon delimited path string in the GOPATH environment variable value.</li>
+</ul>
+<h2 id="gopath"><strong>GOPATH</strong>:</h2>
+<ul>
+<li>GOPATH is an environment variable.</li>
+<li>This variable is used to <strong>resolve import statements in go source files</strong>.</li>
+<li>If you created a project directory without adding it's location to the GOPATH env variable and a package source inside that project has an import statement containing an <code>import path</code> to a package in the same project, Go will not be able to resolve that import path and will raise a <em><strong>cannot find package error</strong></em>.</li>
+<li>This is because Go looks for all the import paths in the GOPATH env variable.</li>
+<li>If your project location is not present in the GOPATH, Go obviously cannot look for any package paths inside that project location, therefore resulting in a <em><strong>cannot find package error</strong></em>.</li>
+<li>You can however use the go build coomand-line tool to build and run a package present at any location provided it only imports packages from Go's standard library.</li>
+<li><em><strong>It is a must to include the path of your project directory in the GOPATH env variable so that Go can resolve import paths present in the sources of that project</strong></em>.</li>
+<li>
+<pre><code> edit .zshrc file to contain the below line and run source .zshrc
+ export GOPATH=/workspace1Path/:/workspace2Path/:/workspace3Path
+</code></pre>
+</li>
+</ul>
+<h2 id="go-tool"><strong><code>go</code></strong> <strong>TOOL</strong>:</h2>
+<ul>
+<li>The <code>go</code> command line tool is used to build, fetch and install Go packages and commands.</li>
+</ul>
+<h2 id="go-env-gopath"><strong><code>go env GOPATH</code></strong>:</h2>
+<ul>
+<li>This command returns the value of GOPATH env variable. If you change GOPATH env value, <code>go env GOPATH</code> will reflect that change.</li>
+</ul>
+<h2 id="workspace-structure"><strong>WORKSPACE STRUCTURE</strong>:</h2>
+<ul>
+<li>src - contains Go packages.</li>
+<li>pkg - contains package objects</li>
+<li>bin - contains command executables</li>
+</ul>
+<h2 id="src-directory"><strong><code>src</code></strong> <strong>DIRECTORY</strong>:</h2>
+<ul>
+<li>This directory is a must in a Go project.</li>
+<li>All the packages in a Go project should be rooted at this directory.</li>
+<li>Go's package resolution algorithm resolves all the import paths by searching for those paths inside the <code>src</code> directory of projects included in GOPATH env variable.</li>
+</ul>
+<h2 id="go-build-vs-go-install"><strong><code>go build</code></strong> vs <strong><code>go install</code></strong>:</h2>
+<ul>
+<li><code>go build [package import path]</code>
+<ul>
+<li>on single <strong><code>main</code></strong> package:- It compiles the package and creates an executable file.</li>
+<li>on single <strong><code>non-main</code></strong> package:- It compiles the package but does not produce any output file. <strong>Can be used to check if the package has any compilation errors</strong>.</li>
+</ul>
+</li>
+<li><strong><code>go install [package import path]</code></strong>
+<ul>
+<li>command compiles and produces an output file. This output file can be a command executable or a package object depending on the source.</li>
+</ul>
+</li>
+</ul>
+<h2 id="package"><strong>PACKAGE:</strong></h2>
+<ul>
+<li>Every piece of Go code exists inside a package.</li>
+<li>Go operates in terms of packages rather than files.</li>
+<li>A package is what Go calls it's code <strong>modules</strong>.</li>
+<li>A package can be split across many files as we like, from Go's perspective if all the files have same package declaration they are part of the same package.</li>
+<li><strong>A package in Go is a directory containing one or more Go source files</strong>.</li>
+<li><strong>A package can be of 2 types</strong>
+<ul>
+<li><strong>main</strong> package</li>
+<li><strong>non-main</strong> package</li>
+</ul>
+</li>
+</ul>
+<h2 id="package-path-or-import-path"><strong>PACKAGE PATH or IMPORT PATH:</strong></h2>
+<ul>
+<li>A package path is simply the path of a package directory that contains Go source files.</li>
+<li><strong>This is also the import path of a package.</strong></li>
+<li>The package path must include a <strong>base path</strong> which usually is a remote repository path like <strong><a href="http://github.com/shksa">github.com/shksa</a></strong>, so then the package path will look like <strong><a href="http://github.com/shksa/packageName">github.com/shksa/packageName</a></strong></li>
+<li>All Go source files inside this package directory must define the same package name which by Go's convention is the last element of the package's import path (this is nothing but the name of the package directory itself).</li>
+</ul>
+<h2 id="package-names-the-first-statement-in-a-go-source-file-must-be"><strong>PACKAGE NAMES: The first statement in a Go source file must be</strong></h2>
+<pre><code>package name
+</code></pre>
+<ul>
+<li>This statement defines a name for all the code in the file to be packaged under that name.</li>
+<li>All source files under a package must use the same package name.</li>
+<li>Go's convention is that the package name is the last element of the import path. package imported as <strong><code>crypto/rot13</code></strong> should be named as <strong><code>rot13</code></strong>.</li>
+<li>Packages for building executables should always use the name 'main'.</li>
+</ul>
+<h2 id="go-get"><strong><code>go get</code>:</strong></h2>
+<ul>
+<li><code>go get</code> is used to fetch remote packages.</li>
+<li>The import path or package path contains the path of remote repository is its base, so using that <code>go get</code> command will fetch, build and install that package.</li>
+</ul>
+<h2 id="exported-names"><strong>EXPORTED NAMES:</strong></h2>
+<ul>
+<li>In Go, a name is exported only if it begins with a capital letter.</li>
+<li>So when importing a package you can only refer to it's exported names, &quot;unexported names&quot; are not accessible from outside the package. If you try to access a unexported name, you will get an error.</li>
+</ul>
+<h2 id="variable-declaration-initialization-zero-values"><strong>Variable declaration, initialization, zero-values</strong></h2>
+<ul>
+<li>
+<p>In Go variables can be declared with the <strong><code>var</code></strong> keyword.</p>
+</li>
+<li>
+<p>Initialization of variables can be done along with the declaration statement itsef or with a seperate assignment statement.</p>
+</li>
+<li>
+<p><strong>Go has the feature of automatically initializing variables with the zero-value of the variable's type when they are'nt explicitly initialized</strong>.</p>
+</li>
+<li>
+<p><em>This feature ensures that Go programs dont suffer from the problem of initialized garbage values that affect other languages</em></p>
+</li>
+<li>
+<p><strong>Each type has a zero value</strong>.</p>
+</li>
+<li>
+<p>zero value of int is 0, bool is false, string is &quot;&quot;.</p>
+</li>
+<li>
+<p>zero value of a <strong>array</strong> is defined by the zero value of it's elements.</p>
+</li>
+<li>
+<p>zero value of a <strong>slice</strong> is <code>nil</code>. Although zero value is nil, it behaves as a length 0 slice which can be appended by values to make the slice grow.</p>
+</li>
+<li>
+<p><strong>Go supports type inference and duck typing</strong>.</p>
+</li>
+<li>
+<p><em><strong>Go also supports 'short variable declaration' statements. Such a statement both declares and initializes a variable at the same time without needing to specify the variable's type, Go can deduce that from the initializing value.</strong></em></p>
+</li>
+<li>
+<p><strong>Go also supports multiple variable declaration in a single statement</strong></p>
+</li>
+<li>
+<pre class="hljs"><code><div> <span class="hljs-comment">// single variable declaration</span>
+ <span class="hljs-keyword">var</span> x1 <span class="hljs-keyword">int</span> = <span class="hljs-number">9</span> <span class="hljs-comment">// 1st alternative</span>
+
+ <span class="hljs-keyword">var</span> x2 <span class="hljs-keyword">int</span>     <span class="hljs-comment">// 2nd alternative</span>
+ x2 = <span class="hljs-number">9</span>
+
+ <span class="hljs-keyword">var</span> x3 = <span class="hljs-number">9</span>     <span class="hljs-comment">// 3rd alternative</span>
+
+ x4 := <span class="hljs-number">9</span>        <span class="hljs-comment">// 4th alternative</span>
+
+ <span class="hljs-comment">// Multi-variable declaration</span>
+ a, b, c := <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> <span class="hljs-comment">// with short variable declaration syntax</span>
+
+ <span class="hljs-keyword">var</span> x, y, z <span class="hljs-keyword">int</span>    <span class="hljs-comment">// with 'var' declaration and no explicit initialization</span>
+
+ <span class="hljs-keyword">var</span> m, l, k = <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> <span class="hljs-comment">// with 'var' declaraation and explicit initialization</span>
+</div></code></pre>
+</li>
+</ul>
+<h2 id="shoadowing"><strong>Shoadowing</strong></h2>
+<ul>
+<li>Variables are shadowed by variables of the same name in different scope.</li>
+<li>
+<pre class="hljs"><code><div>  a, b, c := <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>
+  <span class="hljs-keyword">for</span> a := <span class="hljs-number">1</span> ; a &lt; <span class="hljs-number">7</span> ; a++ { <span class="hljs-comment">// a is shadowing the outer a</span>
+    b := <span class="hljs-number">11</span> <span class="hljs-comment">// b is shadowing the outer b</span>
+    c := <span class="hljs-number">12</span> <span class="hljs-comment">// c is shadowing the outer c</span>
+  }
+  fmt.Printf(<span class="hljs-string">"a = %v, b = %v, c = %v"</span>, a, b, c) 
+  <span class="hljs-comment">// a = 1, b = 2, c = 3</span>
+</div></code></pre>
+</li>
+</ul>
+<h2 id="arrays"><strong>Arrays:</strong></h2>
+<ul>
+<li>A Go array is a <strong>fixed-length sequence of items of the same type</strong>.</li>
+<li>The length of array is part of the type.</li>
+<li>Arrays cannot be resized.</li>
+<li>Array can be created using these statement
+<ul>
+<li><code>var array [length]Type</code></li>
+<li><code>var array = [N]Type{value1, value2, value3, value4, ..., valueN}</code></li>
+<li><code>var array = [...]Type{value1, value2, value3, value4, ..., valueN}</code></li>
+</ul>
+</li>
+<li><code>Go guarentees that all array elements are initialized to their zero value if they are not explicity initialized</code>.</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">var</span> buffer [<span class="hljs-number">10</span>]<span class="hljs-keyword">byte</span>
+  <span class="hljs-comment">// buffer is [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]</span>
+  <span class="hljs-keyword">var</span> grid = [<span class="hljs-number">4</span>][<span class="hljs-number">4</span>]<span class="hljs-keyword">int</span>{
+    {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>},
+    {<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>},
+    {<span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>},
+  }
+  <span class="hljs-comment">/* 
+  grid is 
+  [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    [0, 0, 0]
+  ]
+  */</span>
+  cities := [...]<span class="hljs-keyword">string</span>{<span class="hljs-string">"bangalore"</span>, <span class="hljs-string">"chennai"</span>, <span class="hljs-string">"delhi"</span>, <span class="hljs-string">"kolkata"</span>}
+</div></code></pre>
+</li>
+</ul>
+<h2 id="slices"><strong>Slices</strong></h2>
+<ul>
+<li><strong>A Slice is a variable-length fixed capacity sequence of items of the same type</strong>.</li>
+<li>In Go slices are flexible, powerful, convinient than arrays.</li>
+<li>Arrays vs Slices
+<table>
+<thead>
+<tr>
+<th>Arrays</th>
+<th>slices</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arrays are passed by value(i.e copied)</td>
+<td>Slices are references, hence they are cheap to pass</td>
+</tr>
+<tr>
+<td>Arrays are of fixed size</td>
+<td>Slices can be resized</td>
+</tr>
+<tr>
+<td>Can be sliced</td>
+<td>Can be sliced</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><strong>Shrinking and growing</strong>
+<ul>
+<li>Slices can shrunk by slicing.</li>
+<li>Slices can be grown using the <code>append</code> built-in function.</li>
+</ul>
+</li>
+<li>Slices can be created using these statements
+<ul>
+<li><code>var slice = make([]Type, length, capacity)</code></li>
+<li><code>var slice = make([]Type, length)</code></li>
+<li><code>var slice = []Type{}</code></li>
+<li><code>var slice = []Type{value1, value2, value3, ..., valueN}</code></li>
+<li><code>var slice []Type</code></li>
+</ul>
+</li>
+<li>Slices have the type <code>[]T</code>.</li>
+<li>Arrays have the type <code>[n]T</code>, this is not the same as type of slice which is <code>[]T</code>.</li>
+<li><strong>Slice is a seperate data type in Go, unlike python</strong>.</li>
+</ul>
+<h2 id="composite-literals">Composite literals</h2>
+<ul>
+<li><em><strong>Primitive literals construct values for primitive types.</strong></em></li>
+<li><em><strong>Composite literals construct values for composite types.</strong></em></li>
+<li>Both these literals create a new value each time they are evaluated</li>
+<li>Composite types in Go include arrays, slices, maps, structs.</li>
+<li><strong>Syntax of composite literal</strong>
+<ul>
+<li><strong><code>literalType{literalValues}</code></strong></li>
+</ul>
+</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">type</span> Point3D <span class="hljs-keyword">struct</span> { x, y, z <span class="hljs-keyword">float64</span> }
+  <span class="hljs-keyword">type</span> Line <span class="hljs-keyword">struct</span> { p, q Point3D }
+
+  origin := Point3D{}        <span class="hljs-comment">// zero value for Point3D</span>
+  line := Line{origin, Point3D{y: <span class="hljs-number">-4</span>, z: <span class="hljs-number">12.3</span>}}  <span class="hljs-comment">// zero value for line.q.x</span>
+</div></code></pre>
+</li>
+</ul>
+<h2 id="creating-slices-with-maket-length-capacity"><strong>Creating slices with <code>make([]T, length, capacity)</code></strong></h2>
+<ul>
+<li><code>make()</code> is a built-in function to create slices, maps, channels which are all reference type.</li>
+<li><code>make()</code> when used to create slices, creates a <strong>hidden zero-value</strong> initialized array and returns a slice reference that refers to the hidden array.</li>
+<li><strong>The hidden array like all arrays in Go is fixed in length</strong>. The length of this hidden array is defined to be the capacity of the slice.</li>
+<li><strong>A slice's length is any amount upto it's capacity</strong>.</li>
+</ul>
+<h2 id="creating-slices-with-composite-literal-and-nil-slices"><strong>Creating slices with composite literal and nil slices</strong></h2>
+<ul>
+<li>Creating slices with the composite literal is very convinient because it allows us to create slices with some initial values.</li>
+<li><code>[]Type{}</code> is equivalent to <code>make([]Type, 0)</code>. Both create an <strong>empty slice</strong> which is a reference to a length 0 array.</li>
+<li>The built-in <strong>append()</strong> can be used to populate empty slices.</li>
+<li>The declaration <code>var slice []Type</code> creates a slice that is equal to <code>nil</code>, no hidden array is created. Just a slice variable of the given type is created.</li>
+<li>Zero value of a slice is <code>nil</code>.</li>
+<li>nil slice has length and capacity as 0 and no underlying array.</li>
+<li>A nil slice behaves as a length 0 slice, it can be appended with values to grow the slice.</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">var</span> slice []<span class="hljs-keyword">int</span>
+  slice == <span class="hljs-literal">nil</span>
+  <span class="hljs-built_in">len</span>(slice) == <span class="hljs-number">0</span>
+  <span class="hljs-built_in">cap</span>(slice) == <span class="hljs-number">0</span>
+  <span class="hljs-comment">// This nil slice can be grown using append() function</span>
+  slice = <span class="hljs-built_in">append</span>(slice, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>)
+  <span class="hljs-built_in">len</span>(slice) == <span class="hljs-number">3</span>
+  <span class="hljs-built_in">cap</span>(slice) == <span class="hljs-number">3</span>
+</div></code></pre>
+</li>
+<li>
+<blockquote>
+<p><strong>For practical purposes, when we need to create an initial empty slice it's always better to create the empty slice with <code>make()</code> giving it a length 0 and a non-zero capacity that is approximately equal to the number of items you expect the slice to end up with</strong>.</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="slices-are-refernces-to-arrays-not-the-arrays-themselves"><strong>Slices are refernces to arrays, not the arrays themselves</strong></h2>
+<ul>
+<li>A slice is a reference to an array and slices of slices are also refernces to the same array.</li>
+<li>So when we change the array data through one of it's slice references, the change is visible to all the slice references.</li>
+<li>
+<pre class="hljs"><code><div>  s := []<span class="hljs-keyword">string</span>{<span class="hljs-string">"A"</span>, <span class="hljs-string">"B"</span>, <span class="hljs-string">"C"</span>, <span class="hljs-string">"D"</span>, <span class="hljs-string">"E"</span>, <span class="hljs-string">"F"</span>, <span class="hljs-string">"G"</span>}
+  t := s[:<span class="hljs-number">5</span>]
+  u := s[<span class="hljs-number">3</span>:<span class="hljs-built_in">len</span>(s)<span class="hljs-number">-1</span>]
+  <span class="hljs-comment">// s is ["A", "B", "C", "D", "E", "F", "G"]</span>
+  <span class="hljs-comment">// t is ["A", "B", "C", "D", "E"]</span>
+  <span class="hljs-comment">// u is ["D", "E", "F", "G"]</span>
+  <span class="hljs-comment">// Now, change the hidden array element value through one of the slices</span>
+  u[<span class="hljs-number">0</span>] = <span class="hljs-string">"ζ"</span>
+  <span class="hljs-comment">// The hidden array is modified, this is visible to all of it's slice references.</span>
+  <span class="hljs-comment">// s is ["A", "B", "C", "ζ", "E", "F", "G"]</span>
+  <span class="hljs-comment">// t is ["A", "B", "C", "ζ", "E"]</span>
+  <span class="hljs-comment">// u is ["ζ", "E", "F", "G"]</span>
+</div></code></pre>
+</li>
+<li><img src="file:///Users/sreekarnimbalkar/go/src/github.com/shksa/learningGo/src/learningGo/sliceAndInternalArray.png" alt="alt-text"></li>
+</ul>
+<h2 id="slice-of-pointers"><strong>Slice of pointers</strong></h2>
+<ul>
+<li>Slice can contain pointer types.</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">type</span> Product <span class="hljs-keyword">struct</span> {
+    name <span class="hljs-keyword">string</span>
+    price <span class="hljs-keyword">float64</span>
+  }
+
+  products := []*Product{
+    &amp;Product{<span class="hljs-string">"milk"</span>, <span class="hljs-number">34.5</span>},   <span class="hljs-comment">// or just {"milk", 34.5}</span>
+    &amp;Product{<span class="hljs-string">"bisket"</span>, <span class="hljs-number">23.5</span>}, <span class="hljs-comment">// or just {"bisket", 23.5}</span>
+    &amp;Product{<span class="hljs-string">"balloon"</span>, <span class="hljs-number">4.3</span>}, <span class="hljs-comment">// or just {"balloon", 4.3}</span>
+  }
+
+  <span class="hljs-keyword">for</span> _, product := <span class="hljs-keyword">range</span> products {
+    product.price += <span class="hljs-number">0.5</span>
+  }
+</div></code></pre>
+</li>
+</ul>
+<h2 id="shrinking-and-growing-slices"><strong>Shrinking and growing slices</strong></h2>
+<ul>
+<li>A slice's length can grown or reduced by reslicing it, it can't be grown beyond it's capacity</li>
+<li>Slice's <strong>capacity</strong> can be grown using the <strong>append()</strong> function.</li>
+<li>
+<pre class="hljs"><code><div>  avengers := []<span class="hljs-keyword">string</span>{<span class="hljs-string">"ironman"</span>, <span class="hljs-string">"thor"</span>, <span class="hljs-string">"hulk"</span>}
+  avengers = <span class="hljs-built_in">append</span>(avengers, <span class="hljs-string">"blackwidow"</span>, <span class="hljs-string">"hawkeye"</span>)
+
+  justiceLeague := []<span class="hljs-keyword">string</span>{<span class="hljs-string">"batman"</span>, <span class="hljs-string">"superman"</span>, <span class="hljs-string">"flash"</span>}
+
+  heros := <span class="hljs-built_in">append</span>(avengers, justiceLeague...) <span class="hljs-comment">// appending a slice to a slice</span>
+</div></code></pre>
+</li>
+</ul>
+<h2 id="closures"><strong>Closures</strong></h2>
+<ul>
+<li>Go functions can be closures when they are declared inside an outer function <strong>without a name</strong>.</li>
+<li><strong>A closure is a function that &quot;captures&quot; constants and variables that are present in the same scope where the function was created if the function refers to them in it's body</strong>.</li>
+<li><strong>In this sense, the function is bound to those variables</strong>.</li>
+<li>The variables closed over the function are like properties of the function, like property of an object.</li>
+<li><strong>They do not behave like local variables, they rather behave like static variables, in that they exist even after the function has returned and can can be used in the next call with it's value preserved from the previous call.</strong></li>
+<li><strong>In Go</strong>, every anaonymous function is a closure.</li>
+<li><strong>For a function to be a closure it must be defined with no name</strong>.</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">fibonacci</span><span class="hljs-params">()</span> <span class="hljs-title">func</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> {
+  a, b = <span class="hljs-number">1</span>, <span class="hljs-number">0</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span> <span class="hljs-title">int</span></span> { <span class="hljs-comment">// anonymous function, therefore a closure</span>
+    a, b = b, a+b
+    <span class="hljs-keyword">return</span> a
+  }
+}
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+  f := fibonacci()
+  <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">6</span>; i++ {
+    fmt.Println(f())
+  }
+}
+&gt;&gt; <span class="hljs-number">0</span>
+&gt;&gt; <span class="hljs-number">1</span>
+&gt;&gt; <span class="hljs-number">1</span>
+&gt;&gt; <span class="hljs-number">2</span>
+&gt;&gt; <span class="hljs-number">3</span>
+&gt;&gt; <span class="hljs-number">5</span>
+</div></code></pre>
+<h2 id="type-conversions"><strong>Type conversions</strong></h2>
+<ul>
+<li>Conversion syntax: <strong><code>resultOfDesiredType:= desiredType(expression)</code></strong></li>
+<li>The <strong><code>expression</code></strong> argument can be a numeric literal, string literal, variable etc.</li>
+<li>A <strong><code>string</code></strong> can be converted to <strong><code>[]byte</code></strong>(<strong>underlying utf-8 bytes</strong>) or to a <strong><code>rune[]</code></strong>(<strong>unicode code points</strong>) and both <strong><code>byte[]</code></strong> and <strong><code>rune[]</code></strong> can be converted to a <strong><code>string</code></strong></li>
+<li>A custom type of string slice can be converted to a plain string slice.</li>
+<li>
+<pre class="hljs"><code><div>  stringVar := <span class="hljs-string">"sleptking"</span>
+  <span class="hljs-comment">// converting string type to byte slice type []byte</span>
+  <span class="hljs-comment">// using the call Type(expression)</span>
+  byteSlice := []<span class="hljs-keyword">byte</span>(stringVar)
+  fmt.Printf(<span class="hljs-string">"%v \n"</span>, byteSlice) <span class="hljs-comment">// [115 108 101 112 116 107 105 110 103]</span>
+
+  <span class="hljs-comment">// converting string type to rune slice type []byte</span>
+  <span class="hljs-comment">// using the call Type(expression)</span>
+  runeSlice := []<span class="hljs-keyword">rune</span>(stringVar)
+  fmt.Printf(<span class="hljs-string">"%v \n"</span>, runeSlice) <span class="hljs-comment">// [115 108 101 112 116 107 105 110 103]</span>
+
+  <span class="hljs-comment">// A custom string slice type</span>
+  <span class="hljs-keyword">type</span> StringSlice []<span class="hljs-keyword">string</span>
+
+  fancy := StringSlice{<span class="hljs-string">"lithium"</span>, <span class="hljs-string">"sodium"</span>, <span class="hljs-string">"potassium"</span>}
+
+  <span class="hljs-comment">// converting custom string slice to plain string slice type []string</span>
+  plainStringSlice := []<span class="hljs-keyword">string</span>(fancy)
+</div></code></pre>
+</li>
+</ul>
+<h2 id="strong-typing"><strong>Strong typing</strong></h2>
+<ul>
+<li>Go is strongly typed.</li>
+<li>This means when a variable is declared as an <code>int</code>, we can only assign <code>int</code> type values to it.</li>
+<li>Assigning values other than <code>int</code> will raise a compile time error.</li>
+<li>Simply put, strong typing means <code>a variable declared with a certain type can only accept values of that type</code>.</li>
+</ul>
+<h2 id="constants"><strong>Constants</strong></h2>
+<ul>
+<li>Constants can be declared using the <code>const</code> keyword</li>
+</ul>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">const</span> pi = <span class="hljs-number">3.14</span> <span class="hljs-comment">// constant; type-compatible with any numeric type</span>
+  <span class="hljs-keyword">const</span> top <span class="hljs-keyword">uint8</span> = <span class="hljs-number">42</span> <span class="hljs-comment">// constant; type: uint8</span>
+</div></code></pre>
+<ul>
+<li>There are two kinds of numeric constants
+<ul>
+<li><code>Typed numeric constants</code> -  can only be used in expressions with numbers of the same type</li>
+<li><code>Untyped numeric constants</code> - can be used in expressions with numbers of any built-in type</li>
+</ul>
+</li>
+</ul>
+<h2 id="enumerations"><strong>Enumerations</strong></h2>
+<ul>
+<li>Go has bare-bones support for enumerations.</li>
+<li>It is acheived by grouping several constant declarations using the const declaration once and the <code>iota</code> keyword.</li>
+</ul>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">const</span> (
+    Cyan = <span class="hljs-literal">iota</span> <span class="hljs-comment">//0, value of iota is 0 now</span>
+    Magenta     <span class="hljs-comment">//1, also iota but now iota's value is 1</span>
+    Yellow      <span class="hljs-comment">//2, also iota but now iota's value is 2</span>
+  )
+</div></code></pre>
+<ul>
+<li><strong><code>iota</code></strong> keyword represents successive untyped integer constants.</li>
+<li><strong>It's value is reset to zero whenever the keyword const appears and increments by one for each constant declaration</strong>.</li>
+<li><em><strong>When to use enums?</strong></em>
+<ul>
+<li><strong>enums are used in a case when you want just want constants to have distinct values and don't really care what those values are.</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="variables"><strong>Variables</strong></h2>
+<ul>
+<li>Variables in Go can hold
+<ul>
+<li><em><strong>values</strong></em> or</li>
+<li><em><strong>references</strong></em> or</li>
+<li><em><strong>pointers</strong></em></li>
+</ul>
+</li>
+<li><em>A variable is the name given to a piece of memory that holds a value</em>.</li>
+<li><em><strong>We can think of variables as being the value it holds</strong></em>.</li>
+<li><em>Go treats a variable as synonymous with the memory that stores the value assigned to that variable</em>.</li>
+<li>
+<pre class="hljs"><code><div>y := <span class="hljs-number">1.5</span> <span class="hljs-comment">// variable: y, value: 1.5, type: float64, memory address: 0xf870000f78</span>
+</div></code></pre>
+</li>
+</ul>
+<h2 id="types-in-go"><strong>Types in Go</strong></h2>
+<ul>
+<li>Fundamentally types in Go can divided into 3 groups.
+<ol>
+<li><strong>Value</strong> types, ex: <code>int</code>, <code>string</code>, <code>bool</code> types</li>
+<li><strong>Pointer</strong> types, ex: <code>*int</code>, <code>*bool</code> type</li>
+<li><strong>Reference</strong> types, ex: <code>[]int</code>, <code>[]string</code>, <code>map[int]string</code> types</li>
+</ol>
+</li>
+</ul>
+<h2 id="pointers"><strong>Pointers</strong></h2>
+<ul>
+<li>Pointer is a variable that stores another variable's memory address.</li>
+<li>A variable that is pointed-to by a pointer can be modified through that pointer.</li>
+<li><strong>Ponited</strong>-to variables persist in memory as long as there exists a pointer that points to them.</li>
+<li><code>&amp;</code> is called the <em>address</em>-of operator.</li>
+<li>* as a unary operator: <code>*</code> operator when used with a pointer provides access to value of variable the pointer points to.</li>
+</ul>
+<pre class="hljs"><code><div>x := <span class="hljs-number">2</span> <span class="hljs-comment">// variable: x, type: int</span>
+px := &amp;x <span class="hljs-comment">// variable: px, type: *int</span>
+*px == <span class="hljs-number">2</span> <span class="hljs-comment">// *px and x can be used interchangebly now.</span>
+<span class="hljs-comment">// *px is called dereferencing the pointer px.</span>
+</div></code></pre>
+<ul>
+<li><code>*</code> is called <code>contents-of</code> or <code>dereference</code> or <code>indirection</code> operator.</li>
+<li><code>Dereferencing a pointer</code>: This means to access value of the variable it points to using the <code>*</code> operator.</li>
+<li><code>Indirection</code>: Using the pointer to refer to a value is called <code>indirection</code>.</li>
+<li><code>pointed-to value</code> - Value of variable that a pointer points to.</li>
+<li><code>pointed-to variable</code> - Variable that a pointer points to.</li>
+</ul>
+<pre class="hljs"><code><div>*px++ <span class="hljs-comment">// increments the pointed-to value</span>
+*px == <span class="hljs-number">3</span>
+x == <span class="hljs-number">3</span>
+</div></code></pre>
+<ul>
+<li><code>* as type modifier</code>:
+<ul>
+<li><code>*</code> operator when placed to the left of a type name changes the meaning of the name from specifying the <code>type of value</code> to specifying the <code>pointer to a value of the given type</code>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="new-and--operator-to-create-pointers"><strong>new() and &amp; operator to create pointers</strong></h2>
+<ul>
+<li><code>There are 2 ways in Go to create variables and acquire pointers to them at the same time!</code>.</li>
+<li><code>using new(type)</code>:
+<ul>
+<li>Using a type we can
+<ul>
+<li><code>Create values of that type</code> or</li>
+<li><code>Pointers to values of that type</code>.</li>
+</ul>
+</li>
+<li><code>new(type)</code> does the second thing</li>
+<li>
+<pre class="hljs"><code><div><span class="hljs-keyword">type</span> composer <span class="hljs-keyword">struct</span> {
+  name      <span class="hljs-keyword">string</span>
+  birthYear <span class="hljs-keyword">int</span>
+}
+
+rahman := composer{<span class="hljs-string">"A.R Rahman"</span>, <span class="hljs-number">1280</span>} <span class="hljs-comment">// creating a value of type 'composer'</span>
+
+zimmer := <span class="hljs-built_in">new</span>(composer) <span class="hljs-comment">// creating a pointer to a value of type 'composer'</span>
+
+zimmer.name, zimmer.birthYear = <span class="hljs-string">"hans zimmer"</span>, <span class="hljs-number">1325</span> <span class="hljs-comment">// modyfying the pointed-to value</span>
+</div></code></pre>
+</li>
+<li><code>new(Type) ≡ &amp;Type{}</code></li>
+<li>Both these syntaxes allocate a new zeroed value of the given <code>Type</code> and return a pointer to that value.</li>
+<li><code>If a type cannot be initialized using braces then we can only use the built-in new() function</code>.</li>
+<li>Using <code>&amp;Type{initial values}</code> for <code>structs</code> we can specify initial field values</li>
+<li>
+<pre class="hljs"><code><div>beethovan := &amp;composer{<span class="hljs-string">"blind beethovan"</span>, <span class="hljs-number">4512</span>} <span class="hljs-comment">// pointer to a 'composer' type value with the specified fields.</span>
+</div></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="why-pass-pointer-type-variables-instead-of-regular-variables-to-functions"><strong>Why pass pointer type variables instead of regular variables to functions?</strong></h2>
+<ul>
+<li><em><strong>To modify the data in-place and pointers are a lot cheaper to pass</strong></em>.</li>
+<li>Anytime you pass value type variables as arguments to a function like for example <strong><code>swap(x, y)</code></strong>, the function receives a copy of those values.</li>
+<li>Then these received values are set as values of parameters of the function.</li>
+<li>If you want your function to receive an argument as-is instead of it's copy, you need to send a pointer of that variable to the function.</li>
+<li>Once you have a pointer of the argument, you can access it's value by <em><strong>dereferencing the pointer</strong></em>.</li>
+<li>A swap function in Go looks like this.</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">swap</span><span class="hljs-params">(px, py *<span class="hljs-keyword">int</span>)</span></span> {
+    <span class="hljs-comment">// px == 0xf5622d3276... something</span>
+    <span class="hljs-comment">// py == 0xfd6237da67... something</span>
+    <span class="hljs-comment">// px is a variable which serves as a pointer to variable x of type int</span>
+    <span class="hljs-comment">// py is a variable which serves as a pointer to variable y of type int</span>
+    <span class="hljs-comment">// *px accesses the value of variable x</span>
+    <span class="hljs-comment">// *py accesses the value of variable y</span>
+    <span class="hljs-comment">// You can change value of variable x through it's pointer variable px by the statement *px = NEW_VALUE</span>
+    *px, *py = *py, *px
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+    x, y := <span class="hljs-string">"foo"</span>, <span class="hljs-string">"bar"</span>
+    swap(&amp;x, &amp;y)
+    x == <span class="hljs-string">"bar"</span> <span class="hljs-comment">// true</span>
+    y == <span class="hljs-string">"foo"</span> <span class="hljs-comment">// true</span>
+  }
+</div></code></pre>
+</li>
+</ul>
+<h2 id="reference-types"><strong>Reference types</strong></h2>
+<ul>
+<li><em>A variable of a reference type refers to a hidden value in memory that stores the actual data</em>.</li>
+<li>Variables of reference types are cheap to pass.</li>
+<li>They have the same syntax to work with as variables of value types.</li>
+<li><em><strong>slices, maps, channels, functions, methods</strong></em> are reference types.</li>
+<li><strong>Unlike pointers, there is no special syntax for reference types since they are used just like values</strong>.</li>
+<li>
+<pre class="hljs"><code><div>  grades := []<span class="hljs-keyword">int</span>{<span class="hljs-number">23</span>, <span class="hljs-number">67</span>, <span class="hljs-number">45</span>, <span class="hljs-number">12</span>, <span class="hljs-number">86</span>, <span class="hljs-number">56</span>, <span class="hljs-number">32</span>, <span class="hljs-number">87</span>, <span class="hljs-number">57</span>}
+  <span class="hljs-comment">// variable grades is of type slice of ints which is a refernce type.</span>
+  <span class="hljs-comment">// This variable refers to a hidden array value but does not hold any data like variables of value types.</span>
+</div></code></pre>
+</li>
+</ul>
+<h2 id="init-and-main-function"><strong>init() and main() function</strong></h2>
+<ul>
+<li>Go reserves two function names for special purposes.
+<ol>
+<li><strong>init()</strong> - in all packages</li>
+<li><strong>main()</strong> - only in <em>main</em> packages</li>
+</ol>
+</li>
+<li>A Go program's startup sequence</li>
+<li><img src="file:///Users/sreekarnimbalkar/go/src/github.com/shksa/learningGo/src/learningGo/programStartUpSequence.png" alt="alt-text"></li>
+<li>When a package is imported,
+<ol>
+<li>If it has it's own imports they are performed first.</li>
+<li>The the package-level constants and variables are created.</li>
+<li>And then the <strong><code>init()</code></strong> function is called if the package has it.</li>
+</ol>
+</li>
+</ul>
+<h2 id="errors">Errors</h2>
+<ul>
+<li>Errors in Go are expressed with values of the built-in <strong><code>error</code></strong> type.</li>
+<li>The <strong><code>error</code></strong> type is a built-in interface just like the fmt.Stringer interface</li>
+<li>
+<pre class="hljs"><code><div>  <span class="hljs-keyword">type</span> error <span class="hljs-keyword">interface</span> {
+    Error() <span class="hljs-keyword">string</span>
+  }
+</div></code></pre>
+</li>
+<li>How to use errors in programs
+<ul>
+<li>Function should return <strong><code>error</code></strong> values and the calling code should handle the errors by testing whether the error equals <strong><code>nil</code></strong>.</li>
+<li>A <strong>nil</strong> <strong><code>error</code></strong> value denotes <strong>success</strong>, a <strong>non-nil</strong> <strong><code>error</code></strong> value denotes <strong>failure</strong>.</li>
+<li>
+<pre class="hljs"><code><div>  i, err := strconv.Atoi(<span class="hljs-string">"42"</span>)
+  <span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> {
+      fmt.Printf(<span class="hljs-string">"couldn't convert number: %v\n"</span>, err)
+  }
+  fmt.Println(<span class="hljs-string">"Converted integer:"</span>, i)
+</div></code></pre>
+</li>
+</ul>
+</li>
+</ul>
+
+    </body>
+    </html>
