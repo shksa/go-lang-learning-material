@@ -46,5 +46,5 @@ func main() {
 			score++
 		}
 	}
-	fmt.Printf("\nTotal no. questions: %d \nNo. of questions answered correctly: %d\n", len(questionAnswerRecords), score)
+	fmt.Printf("\nTotal no. questions: %d \nNo. of questions answered correctly: %d\n\n", len(questionAnswerRecords), score)
 }
